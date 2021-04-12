@@ -7,8 +7,8 @@ Full analysis contained in the following files:
 * HTML Version: [link](alcx-users-price.html)
 
 ## Plots
-[price and holders vs time](\plots\change-price-holders.png)
+[price and holders vs time](/plots/change-price-holders.png)
 
-[holders vs time](\plots\holders-vtime.png)
+[holders vs time](/plots/holders-vtime.png)
 
-[users v price](\plots\users-v-price.png)
+[users v price](/plots/users-v-price.png)
