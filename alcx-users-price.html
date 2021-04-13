@@ -14261,8 +14261,9 @@ a.anchor-link {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><h1><center>ALCX Price vs ALCX Accounts</center></h1></p>
 <center>How does the adoption of Alchemix impact price?</center><p>@Ryanl</p>
+<p>Quick thanks to @flipsidecrypto for the bounty</p>
 <p><h2>Data</h2>
-Using Flipside's VELOCITY database, I created an SQL query (<a href="https://app.flipsidecrypto.com/shareable/adoption-and-price-J6iI1y">https://app.flipsidecrypto.com/shareable/adoption-and-price-J6iI1y</a>) which allowed me to grab the number of unique ALCX wallets and ALCX price over time ranging from March 27, 2021 - April 11, 2021. Data used in the following analysis is all <strong>realtime data</strong>, based on VELOCITY's database which updates daily. Downloading the notebook and running locally would yield different results than what is shown below, as more data would be available.</p>
+Using Flipside's VELOCITY database, I created an SQL query (<a href="https://app.flipsidecrypto.com/shareable/adoption-and-price-J6iI1y">https://app.flipsidecrypto.com/shareable/adoption-and-price-J6iI1y</a>) which allowed me to grab the number of unique ALCX wallets and ALCX price over time ranging from March 27, 2021 - April 11, 2021. Data used in the following analysis is all real-time data, based on a VELOCITY query which updates daily. Downloading the notebook and running locally would yield different results than what is shown below, as more data would be available.</p>
 <p><h2>Analysis</h2></p>
 <h3>Imports</h3>
 </div>
@@ -14343,7 +14344,6 @@ These two series are used to plot the first figure below.</li>
     <span class="n">counter</span><span class="o">+=</span><span class="mi">1</span>
 <span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;BALANCE_DAY&#39;</span><span class="p">][</span><span class="n">counter</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;BALANCE_DAY&#39;</span><span class="p">][</span><span class="n">counter</span><span class="p">]</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;IND&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ind</span>
-
 <span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;DELTA_PRICE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;PRICE&#39;</span><span class="p">])</span>
 <span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;DELTA_ADDRESSES&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;UNIQUE_ADDRESSES&#39;</span><span class="p">])</span>
 
@@ -14358,13 +14358,13 @@ These two series are used to plot the first figure below.</li>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>This next block creates utilizes a linear regression module to analyze the relationship between a couple different sets of data.</p>
+<p>This next block utilizes a linear regression module to analyze the relationship between a couple different sets of data.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
@@ -14392,15 +14392,13 @@ These two series are used to plot the first figure below.</li>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><h3>ALCX Accounts vs Time</h3>
-Below represents the number of accounts with respect to time. It is evident that ALCX is steadily gaining users, brought in by outside factors. However, this poses additional questions (outside of the scope of this analysis) relating to the variables that affect the increase in adoption.</p>
-<p><em>Is the price increase due to increase in accounts?</em></p>
-<p>From the graphs, we can see taht the price fluctuates with respect to the addition of new wallets, however the rate of new wallets is more consistent. In addition, the change in price/accounts of ALCX vs time, shows during a large price jump, the number of accounts also jumps. Unfortunately, there isn't enough data to say for sure which one influences the other more.</p>
+Below we can see the relationship between the number of unique accounts with respect to time.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
@@ -14439,7 +14437,7 @@ Below represents the number of accounts with respect to time. It is evident that
   <rdf:RDF xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2021-04-12T12:56:12.291681</dc:date>
+    <dc:date>2021-04-12T16:59:09.778440</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -14476,38 +14474,38 @@ z
       <defs>
        <path d="M 0 0 
 L 0 3.5 
-" id="m4171cf62ee" style="stroke:#000000;stroke-width:0.8;"/>
+" id="m35fc2ddee8" style="stroke:#000000;stroke-width:0.8;"/>
       </defs>
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="68.546307" xlink:href="#m4171cf62ee" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="68.546307" xlink:href="#m35fc2ddee8" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_2">
      <g id="line2d_2">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="141.013839" xlink:href="#m4171cf62ee" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="141.013839" xlink:href="#m35fc2ddee8" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_3">
      <g id="line2d_3">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="213.481372" xlink:href="#m4171cf62ee" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="213.481372" xlink:href="#m35fc2ddee8" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_4">
      <g id="line2d_4">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="285.948904" xlink:href="#m4171cf62ee" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="285.948904" xlink:href="#m35fc2ddee8" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_5">
      <g id="line2d_5">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="358.416437" xlink:href="#m4171cf62ee" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="358.416437" xlink:href="#m35fc2ddee8" y="239.758125"/>
       </g>
      </g>
     </g>
@@ -14810,10 +14808,10 @@ z
       <defs>
        <path d="M 0 0 
 L -3.5 0 
-" id="m6b02b1478b" style="stroke:#000000;stroke-width:0.8;"/>
+" id="md581268e28" style="stroke:#000000;stroke-width:0.8;"/>
       </defs>
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m6b02b1478b" y="231.330154"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#md581268e28" y="231.330154"/>
       </g>
      </g>
      <g id="text_2">
@@ -14829,7 +14827,7 @@ L -3.5 0
     <g id="ytick_2">
      <g id="line2d_7">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m6b02b1478b" y="204.863503"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#md581268e28" y="204.863503"/>
       </g>
      </g>
      <g id="text_3">
@@ -14845,7 +14843,7 @@ L -3.5 0
     <g id="ytick_3">
      <g id="line2d_8">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m6b02b1478b" y="178.396851"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#md581268e28" y="178.396851"/>
       </g>
      </g>
      <g id="text_4">
@@ -14895,7 +14893,7 @@ z
     <g id="ytick_4">
      <g id="line2d_9">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m6b02b1478b" y="151.930199"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#md581268e28" y="151.930199"/>
       </g>
      </g>
      <g id="text_5">
@@ -14932,7 +14930,7 @@ z
     <g id="ytick_5">
      <g id="line2d_10">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m6b02b1478b" y="125.463547"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#md581268e28" y="125.463547"/>
       </g>
      </g>
      <g id="text_6">
@@ -14975,7 +14973,7 @@ z
     <g id="ytick_6">
      <g id="line2d_11">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m6b02b1478b" y="98.996896"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#md581268e28" y="98.996896"/>
       </g>
      </g>
      <g id="text_7">
@@ -15023,7 +15021,7 @@ z
     <g id="ytick_7">
      <g id="line2d_12">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m6b02b1478b" y="72.530244"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#md581268e28" y="72.530244"/>
       </g>
      </g>
      <g id="text_8">
@@ -15039,7 +15037,7 @@ z
     <g id="ytick_8">
      <g id="line2d_13">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m6b02b1478b" y="46.063592"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#md581268e28" y="46.063592"/>
       </g>
      </g>
      <g id="text_9">
@@ -15349,7 +15347,7 @@ z
     </g>
    </g>
    <g id="line2d_14">
-    <path clip-path="url(#pc9f4012d20)" d="M 68.546307 229.874489 
+    <path clip-path="url(#pc852cafc29)" d="M 68.546307 229.874489 
 L 68.546307 221.96096 
 L 75.79306 208.939367 
 L 83.039813 201.502238 
@@ -15396,7 +15394,7 @@ L 372.909943 42.067128
 " style="fill:none;stroke:#1f77b4;stroke-linecap:square;stroke-width:1.5;"/>
    </g>
    <g id="line2d_15">
-    <path clip-path="url(#pc9f4012d20)" d="M 68.546307 201.924601 
+    <path clip-path="url(#pc852cafc29)" d="M 68.546307 201.924601 
 L 68.546307 201.924601 
 L 75.79306 197.883581 
 L 83.039813 193.842561 
@@ -15559,7 +15557,7 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="pc9f4012d20">
+  <clipPath id="pc852cafc29">
    <rect height="217.44" width="334.8" x="53.328125" y="22.318125"/>
   </clipPath>
  </defs>
@@ -15582,10 +15580,11 @@ z
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y2</span><span class="p">,</span><span class="n">y_pred2</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;R-squared:</span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y2</span><span class="p">,</span><span class="n">y_pred2</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;slope:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">linear_reg2</span><span class="o">.</span><span class="n">coef_</span><span class="p">))</span>
 </pre></div>
 
      </div>
@@ -15605,7 +15604,8 @@ z
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>0.9731792743269163
+<pre>R-squared:0.97
+slope:[[152.68346056]]
 </pre>
 </div>
 </div>
@@ -15617,8 +15617,7 @@ z
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>R-squared value of 0.97</strong>
-A very strong positive relationship between the amount of ALCX accounts over time shows that if continuing along current trends, adoption will continue to grow steadily.</p>
+<p>The above model's R-squared value shows that it is a good predictor for the observed data. On average, we can say that there will roughly be an increase of 153 new addresses per day.</p>
 
 </div>
 </div>
@@ -15631,7 +15630,7 @@ See the following figure which shows the change in price and change in number of
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#plot</span>
@@ -15671,7 +15670,7 @@ See the following figure which shows the change in price and change in number of
   <rdf:RDF xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2021-04-12T13:00:17.673074</dc:date>
+    <dc:date>2021-04-12T16:59:15.106661</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -15708,311 +15707,311 @@ z
       <defs>
        <path d="M 0 0 
 L 0 3.5 
-" id="mc88233aa14" style="stroke:#000000;stroke-width:0.8;"/>
+" id="m4e5f05613b" style="stroke:#000000;stroke-width:0.8;"/>
       </defs>
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="56.885369" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="56.885369" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_2">
      <g id="line2d_2">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="63.963593" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="63.963593" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_3">
      <g id="line2d_3">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="71.041818" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="71.041818" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_4">
      <g id="line2d_4">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="78.120042" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="78.120042" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_5">
      <g id="line2d_5">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="85.198266" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="85.198266" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_6">
      <g id="line2d_6">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="92.27649" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="92.27649" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_7">
      <g id="line2d_7">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="99.354714" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="99.354714" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_8">
      <g id="line2d_8">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="106.432938" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="106.432938" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_9">
      <g id="line2d_9">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="113.511162" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="113.511162" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_10">
      <g id="line2d_10">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="120.589386" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="120.589386" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_11">
      <g id="line2d_11">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="127.66761" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="127.66761" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_12">
      <g id="line2d_12">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="134.745834" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="134.745834" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_13">
      <g id="line2d_13">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="141.824059" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="141.824059" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_14">
      <g id="line2d_14">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="148.902283" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="148.902283" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_15">
      <g id="line2d_15">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="155.980507" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="155.980507" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_16">
      <g id="line2d_16">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="163.058731" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="163.058731" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_17">
      <g id="line2d_17">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="170.136955" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="170.136955" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_18">
      <g id="line2d_18">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="177.215179" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="177.215179" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_19">
      <g id="line2d_19">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="184.293403" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="184.293403" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_20">
      <g id="line2d_20">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="191.371627" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="191.371627" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_21">
      <g id="line2d_21">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="198.449851" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="198.449851" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_22">
      <g id="line2d_22">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="205.528075" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="205.528075" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_23">
      <g id="line2d_23">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="212.6063" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="212.6063" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_24">
      <g id="line2d_24">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="219.684524" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="219.684524" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_25">
      <g id="line2d_25">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="226.762748" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="226.762748" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_26">
      <g id="line2d_26">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="233.840972" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="233.840972" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_27">
      <g id="line2d_27">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="240.919196" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="240.919196" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_28">
      <g id="line2d_28">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="247.99742" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="247.99742" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_29">
      <g id="line2d_29">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="255.075644" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="255.075644" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_30">
      <g id="line2d_30">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="262.153868" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="262.153868" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_31">
      <g id="line2d_31">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="269.232092" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="269.232092" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_32">
      <g id="line2d_32">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="276.310316" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="276.310316" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_33">
      <g id="line2d_33">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="283.388541" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="283.388541" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_34">
      <g id="line2d_34">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="290.466765" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="290.466765" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_35">
      <g id="line2d_35">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="297.544989" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="297.544989" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_36">
      <g id="line2d_36">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="304.623213" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="304.623213" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_37">
      <g id="line2d_37">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="311.701437" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="311.701437" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_38">
      <g id="line2d_38">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="318.779661" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="318.779661" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_39">
      <g id="line2d_39">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="325.857885" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="325.857885" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_40">
      <g id="line2d_40">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="332.936109" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="332.936109" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_41">
      <g id="line2d_41">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="340.014333" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="340.014333" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_42">
      <g id="line2d_42">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="347.092557" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="347.092557" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_43">
      <g id="line2d_43">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="354.170782" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="354.170782" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_44">
      <g id="line2d_44">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="361.249006" xlink:href="#mc88233aa14" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="361.249006" xlink:href="#m4e5f05613b" y="239.758125"/>
       </g>
      </g>
     </g>
@@ -16315,10 +16314,10 @@ z
       <defs>
        <path d="M 0 0 
 L -3.5 0 
-" id="m1bac2205cd" style="stroke:#000000;stroke-width:0.8;"/>
+" id="med861c1e5e" style="stroke:#000000;stroke-width:0.8;"/>
       </defs>
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="41.667188" xlink:href="#m1bac2205cd" y="230.600071"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="41.667188" xlink:href="#med861c1e5e" y="230.600071"/>
       </g>
      </g>
      <g id="text_2">
@@ -16343,7 +16342,7 @@ z
     <g id="ytick_2">
      <g id="line2d_46">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="41.667188" xlink:href="#m1bac2205cd" y="197.283814"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="41.667188" xlink:href="#med861c1e5e" y="197.283814"/>
       </g>
      </g>
      <g id="text_3">
@@ -16359,7 +16358,7 @@ z
     <g id="ytick_3">
      <g id="line2d_47">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="41.667188" xlink:href="#m1bac2205cd" y="163.967557"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="41.667188" xlink:href="#med861c1e5e" y="163.967557"/>
       </g>
      </g>
      <g id="text_4">
@@ -16372,7 +16371,7 @@ z
     <g id="ytick_4">
      <g id="line2d_48">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="41.667188" xlink:href="#m1bac2205cd" y="130.6513"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="41.667188" xlink:href="#med861c1e5e" y="130.6513"/>
       </g>
      </g>
      <g id="text_5">
@@ -16387,7 +16386,7 @@ z
     <g id="ytick_5">
      <g id="line2d_49">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="41.667188" xlink:href="#m1bac2205cd" y="97.335043"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="41.667188" xlink:href="#med861c1e5e" y="97.335043"/>
       </g>
      </g>
      <g id="text_6">
@@ -16402,7 +16401,7 @@ z
     <g id="ytick_6">
      <g id="line2d_50">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="41.667188" xlink:href="#m1bac2205cd" y="64.018787"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="41.667188" xlink:href="#med861c1e5e" y="64.018787"/>
       </g>
      </g>
      <g id="text_7">
@@ -16451,7 +16450,7 @@ z
     <g id="ytick_7">
      <g id="line2d_51">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="41.667188" xlink:href="#m1bac2205cd" y="30.70253"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="41.667188" xlink:href="#med861c1e5e" y="30.70253"/>
       </g>
      </g>
      <g id="text_8">
@@ -16486,7 +16485,7 @@ z
     </g>
    </g>
    <g id="line2d_52">
-    <path clip-path="url(#p17d5be82a9)" d="M 56.885369 145.911425 
+    <path clip-path="url(#pa7b91b9023)" d="M 56.885369 145.911425 
 L 63.963593 71.634703 
 L 71.041818 68.006381 
 L 78.120042 118.421354 
@@ -16533,7 +16532,7 @@ L 361.249006 178.88379
 " style="fill:none;stroke:#008000;stroke-linecap:square;stroke-width:1.5;"/>
    </g>
    <g id="line2d_53">
-    <path clip-path="url(#p17d5be82a9)" d="M 56.885369 64.351949 
+    <path clip-path="url(#pa7b91b9023)" d="M 56.885369 64.351949 
 L 63.963593 32.201761 
 L 71.041818 35.200224 
 L 78.120042 57.355535 
@@ -17208,7 +17207,7 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="p17d5be82a9">
+  <clipPath id="pa7b91b9023">
    <rect height="217.44" width="334.8" x="41.667188" y="22.318125"/>
   </clipPath>
  </defs>
@@ -17246,7 +17245,7 @@ From the below graph, we can see that the price of ALCX <em>tend</em> to increas
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
@@ -17284,7 +17283,7 @@ From the below graph, we can see that the price of ALCX <em>tend</em> to increas
   <rdf:RDF xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2021-04-12T12:56:09.542145</dc:date>
+    <dc:date>2021-04-12T16:59:17.626249</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -17321,10 +17320,10 @@ z
       <defs>
        <path d="M 0 0 
 L 0 3.5 
-" id="mbfc4f4cca2" style="stroke:#000000;stroke-width:0.8;"/>
+" id="m4c166e4831" style="stroke:#000000;stroke-width:0.8;"/>
       </defs>
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="66.187231" xlink:href="#mbfc4f4cca2" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="66.187231" xlink:href="#m4c166e4831" y="239.758125"/>
       </g>
      </g>
      <g id="text_1">
@@ -17377,7 +17376,7 @@ z
     <g id="xtick_2">
      <g id="line2d_2">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="109.079514" xlink:href="#mbfc4f4cca2" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="109.079514" xlink:href="#m4c166e4831" y="239.758125"/>
       </g>
      </g>
      <g id="text_2">
@@ -17419,7 +17418,7 @@ z
     <g id="xtick_3">
      <g id="line2d_3">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="151.971796" xlink:href="#mbfc4f4cca2" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="151.971796" xlink:href="#m4c166e4831" y="239.758125"/>
       </g>
      </g>
      <g id="text_3">
@@ -17469,7 +17468,7 @@ z
     <g id="xtick_4">
      <g id="line2d_4">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="194.864079" xlink:href="#mbfc4f4cca2" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="194.864079" xlink:href="#m4c166e4831" y="239.758125"/>
       </g>
      </g>
      <g id="text_4">
@@ -17506,7 +17505,7 @@ z
     <g id="xtick_5">
      <g id="line2d_5">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="237.756361" xlink:href="#mbfc4f4cca2" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="237.756361" xlink:href="#m4c166e4831" y="239.758125"/>
       </g>
      </g>
      <g id="text_5">
@@ -17549,7 +17548,7 @@ z
     <g id="xtick_6">
      <g id="line2d_6">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="280.648644" xlink:href="#mbfc4f4cca2" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="280.648644" xlink:href="#m4c166e4831" y="239.758125"/>
       </g>
      </g>
      <g id="text_6">
@@ -17597,7 +17596,7 @@ z
     <g id="xtick_7">
      <g id="line2d_7">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="323.540926" xlink:href="#mbfc4f4cca2" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="323.540926" xlink:href="#m4c166e4831" y="239.758125"/>
       </g>
      </g>
      <g id="text_7">
@@ -17625,7 +17624,7 @@ z
     <g id="xtick_8">
      <g id="line2d_8">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="366.433209" xlink:href="#mbfc4f4cca2" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="366.433209" xlink:href="#m4c166e4831" y="239.758125"/>
       </g>
      </g>
      <g id="text_8">
@@ -17995,10 +17994,10 @@ z
       <defs>
        <path d="M 0 0 
 L -3.5 0 
-" id="m80c316ad95" style="stroke:#000000;stroke-width:0.8;"/>
+" id="m19f00ac386" style="stroke:#000000;stroke-width:0.8;"/>
       </defs>
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m80c316ad95" y="223.74276"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m19f00ac386" y="223.74276"/>
       </g>
      </g>
      <g id="text_10">
@@ -18013,7 +18012,7 @@ L -3.5 0
     <g id="ytick_2">
      <g id="line2d_10">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m80c316ad95" y="199.350896"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m19f00ac386" y="199.350896"/>
       </g>
      </g>
      <g id="text_11">
@@ -18028,7 +18027,7 @@ L -3.5 0
     <g id="ytick_3">
      <g id="line2d_11">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m80c316ad95" y="174.959032"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m19f00ac386" y="174.959032"/>
       </g>
      </g>
      <g id="text_12">
@@ -18043,7 +18042,7 @@ L -3.5 0
     <g id="ytick_4">
      <g id="line2d_12">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m80c316ad95" y="150.567168"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m19f00ac386" y="150.567168"/>
       </g>
      </g>
      <g id="text_13">
@@ -18059,7 +18058,7 @@ L -3.5 0
     <g id="ytick_5">
      <g id="line2d_13">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m80c316ad95" y="126.175304"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m19f00ac386" y="126.175304"/>
       </g>
      </g>
      <g id="text_14">
@@ -18075,7 +18074,7 @@ L -3.5 0
     <g id="ytick_6">
      <g id="line2d_14">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m80c316ad95" y="101.78344"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m19f00ac386" y="101.78344"/>
       </g>
      </g>
      <g id="text_15">
@@ -18091,7 +18090,7 @@ L -3.5 0
     <g id="ytick_7">
      <g id="line2d_15">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m80c316ad95" y="77.391576"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m19f00ac386" y="77.391576"/>
       </g>
      </g>
      <g id="text_16">
@@ -18107,7 +18106,7 @@ L -3.5 0
     <g id="ytick_8">
      <g id="line2d_16">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m80c316ad95" y="52.999712"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m19f00ac386" y="52.999712"/>
       </g>
      </g>
      <g id="text_17">
@@ -18123,7 +18122,7 @@ L -3.5 0
     <g id="ytick_9">
      <g id="line2d_17">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m80c316ad95" y="28.607848"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="53.328125" xlink:href="#m19f00ac386" y="28.607848"/>
       </g>
      </g>
      <g id="text_18">
@@ -18333,7 +18332,7 @@ z
     </g>
    </g>
    <g id="line2d_18">
-    <path clip-path="url(#p9104ba45a7)" d="M 68.546307 229.874489 
+    <path clip-path="url(#pf54127e6b5)" d="M 68.546307 229.874489 
 L 81.371099 223.264762 
 L 102.474102 162.274745 
 L 114.526834 153.008611 
@@ -18380,7 +18379,7 @@ L 372.909943 42.15916
 " style="fill:none;stroke:#1f77b4;stroke-linecap:square;stroke-width:1.5;"/>
    </g>
    <g id="line2d_19">
-    <path clip-path="url(#p9104ba45a7)" d="M 68.546307 185.848168 
+    <path clip-path="url(#pf54127e6b5)" d="M 68.546307 185.848168 
 L 81.371099 179.409493 
 L 102.474102 168.814749 
 L 114.526834 162.763687 
@@ -18521,7 +18520,7 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="p9104ba45a7">
+  <clipPath id="pf54127e6b5">
    <rect height="217.44" width="334.8" x="53.328125" y="22.318125"/>
   </clipPath>
  </defs>
@@ -18544,10 +18543,11 @@ z
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span><span class="n">y_pred3</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R-squared:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span><span class="n">y_pred3</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;slope:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lin_reag3</span><span class="o">.</span><span class="n">coef_</span><span class="p">))</span>
 </pre></div>
 
      </div>
@@ -18567,7 +18567,8 @@ z
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>0.7218622480566586
+<pre>R-squared:0.7218622480566586
+slope:[[0.17656733]]
 </pre>
 </div>
 </div>
@@ -18579,7 +18580,7 @@ z
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>We can see from the data above, that roughly <strong>72%</strong> of the variance in absolute ALCX price can be explained by the total number of accounts. This means that ALCX price and unique accounts have a decently positive linear association. However, we are currently only looking at the larger picture. What does this mean with respect to their daily change?</p>
+<p>We can see from the data above, that roughly <strong>72%</strong> of the variance in absolute ALCX price due to unique accounts can be explained by this linear model. Using this, we can say that the correlation between the price of ALCX has a positive relation due to the number of accounts. However, we are currently only looking at the larger picture. What does this mean with respect to their daily change?</p>
 <p><h3>Change in Price vs Change in Accounts (ALCX)</h3>
 Below is a graph of the absolute change in price with respect to the absolute change in unique ALCX accounts. We can see from this graph, that there is much less linearity in the plot compared to the previous figures.</p>
 
@@ -19876,10 +19877,11 @@ z
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[23]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y1_change</span><span class="p">,</span><span class="n">y_pred</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;R-squared:</span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y1_change</span><span class="p">,</span><span class="n">y_pred</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Slope:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">linear_reg</span><span class="o">.</span><span class="n">coef_</span><span class="p">))</span>
 </pre></div>
 
      </div>
@@ -19899,7 +19901,8 @@ z
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>0.5519855648988707
+<pre>R-squared:0.55
+Slope:[[0.94256288]]
 </pre>
 </div>
 </div>
@@ -19911,30 +19914,19 @@ z
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>We can see that this relationship gives an R-squared value of <strong>0.55</strong> resulting in a positive association of 55%. This means that the <em>change</em> in accounts does not a have a large impact on the <em>change</em> in price of ALCX. This is interesting to note, but not surprising. This analysis only takes into account the price and adoption of ALCX. Countless other factors, most notably market trends, were not taken into account which most likely has a larger impact on the change in price.</p>
+<p>We can see that this relationship gives an R-squared value of <strong>0.55</strong>. This model is not as accurate as the previous models, and this makes sense. The daily change in price seems to have a lower corelation to the change in unique accounts compared to previous graphed data. As our scope narrows, the relationship is harder to characterize linearly to the point where the model's  change in price predictions is only 50% accurate. Each of these deltas are taken by day, which means that there is day-by-day variability in price that the change in users doesn't account for.</p>
+<p>This is interesting to note, but not surprising. This analysis only takes into account the price and adoption of ALCX. Countless other factors, most notably market trends, were not taken into account which most likely has a larger impact on the change in price.</p>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><h2>Conclusion</h2>
-Since the launch of ALCX, we can see that there has been continuous strong adoption over time that seems to follow the predicted trends quite closely at 97% (Figure 1). As we relate this to price, the positive association between price and accounts is still decent at 72%. However, narrowing our scope even more, we can see that the change in price is only 55% affected by the change in accounts. This shows that as we narrow the scope of our data, we can see that the relationship grows weaker. This is due to the limitations of the scope of which this analysis was based. There are many other variables that would affect adoption as well as price. To name a few, media attention (Bounty question #13: ALCX &amp; Twitter) and current market trends and comparison to other DeFi platforms are also needed to assess the full reasoning behind price changes.</p>
+Since the launch of ALCX, we can see that there has been continuous strong adoption over time that seems to follow the predicted trends quite closely at 97% (Figure 1). As we relate this to price, there is a strong positive association between price and accounts with a <em>predicted</em> $1 increase in price for every additional ~5 unique Alchemix accounts. With a <em>predicted</em> increase of ~153 new addresses per day, we should continue to see a rise in price.</p>
+<p>However, narrowing our scope even more, we can see that the modelling for Figure 4, is only 55% accurate for the day-to-day changes. Unfortunately, it is not as strong of a model as the previous. The change in price due to the change in number of accounts varies quite a bit.</p>
+<p>This shows that as we narrow the scope of our data, we can see that the relationship grows weaker. This is due to the limitations of the scope of which this analysis was based. There are many other variables that would affect adoption as well as price. To name a few, media attention (Bounty question #13: ALCX &amp; Twitter) and current market trends and comparison to other DeFi platforms are also needed to assess the full reasoning behind price changes.</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
